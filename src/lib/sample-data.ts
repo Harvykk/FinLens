@@ -2,8 +2,8 @@
 import type { FinancialStatement } from '@/types';
 
 // ============================================================
-// 稳健科技 — 经营健康的标杆企业
-// 特征：稳健增长、现金流充裕、负债合理、各项指标均处于健康区间
+// 稳健科技 — 经营持续改善的标杆企业
+// 特征：收入利润逐年攀升、现金流充裕、负债率递减、所有指标向优
 // ============================================================
 
 export const steadyTechData: FinancialStatement[] = [
@@ -11,88 +11,93 @@ export const steadyTechData: FinancialStatement[] = [
     companyName: '稳健科技（示例）',
     fiscalYear: 2023,
     revenue: 10000,
-    costOfRevenue: 6000,
+    costOfRevenue: 6500,
     sellingExpenses: 800,
     adminExpenses: 600,
     rdExpenses: 400,
     financeExpenses: 200,
     interestExpense: 100,
-    incomeTax: 600,
-    netIncome: 1400,
+    incomeTax: 375,
+    netIncome: 1125,
     totalAssets: 8000,
     currentAssets: 4000,
     cashEquivalents: 1500,
-    accountsReceivable: 800,
+    accountsReceivable: 900,
     otherReceivables: 100,
     inventory: 600,
-    totalLiabilities: 3200,
+    totalLiabilities: 3500,
     currentLiabilities: 3200,
-    shortTermBorrowings: 500,
-    accountsPayable: 800,
+    shortTermBorrowings: 800,
+    accountsPayable: 750,
     otherPayables: 150,
-    totalEquity: 4800,
-    operatingCashFlow: 1500,
+    totalEquity: 4500,
+    operatingCashFlow: 1200,
   },
   {
     companyName: '稳健科技（示例）',
     fiscalYear: 2024,
-    revenue: 11500,
-    costOfRevenue: 6900,
-    sellingExpenses: 900,
+    revenue: 12000,           // +20%
+    costOfRevenue: 7560,      // 毛利率 37%（+2pp）
+    sellingExpenses: 880,
     adminExpenses: 650,
-    rdExpenses: 460,
+    rdExpenses: 480,
     financeExpenses: 180,
-    interestExpense: 90,
-    incomeTax: 720,
-    netIncome: 1690,
-    totalAssets: 9200,
-    currentAssets: 4600,
-    cashEquivalents: 1800,
-    accountsReceivable: 920,
-    otherReceivables: 115,
-    inventory: 690,
-    totalLiabilities: 3500,
-    currentLiabilities: 3500,
-    shortTermBorrowings: 450,
-    accountsPayable: 850,
-    otherPayables: 165,
-    totalEquity: 5700,
-    operatingCashFlow: 1800,
+    interestExpense: 85,
+    incomeTax: 563,
+    netIncome: 1687,          // +50%
+    totalAssets: 9500,
+    currentAssets: 4800,
+    cashEquivalents: 2100,
+    accountsReceivable: 980,
+    otherReceivables: 110,
+    inventory: 680,
+    totalLiabilities: 3700,
+    currentLiabilities: 3300,
+    shortTermBorrowings: 600,
+    accountsPayable: 800,
+    otherPayables: 160,
+    totalEquity: 5800,
+    operatingCashFlow: 1800,  // +50%
   },
   {
     companyName: '稳健科技（示例）',
     fiscalYear: 2025,
-    revenue: 13200,
-    costOfRevenue: 7920,
-    sellingExpenses: 1020,
-    adminExpenses: 720,
-    rdExpenses: 530,
-    financeExpenses: 160,
-    interestExpense: 80,
-    incomeTax: 850,
-    netIncome: 2000,
-    totalAssets: 10600,
-    currentAssets: 5300,
-    cashEquivalents: 2100,
-    accountsReceivable: 1060,
-    otherReceivables: 130,
-    inventory: 790,
-    totalLiabilities: 3850,
-    currentLiabilities: 3850,
-    shortTermBorrowings: 400,
-    accountsPayable: 900,
-    otherPayables: 180,
-    totalEquity: 6750,
-    operatingCashFlow: 2150,
+    revenue: 15000,           // +25%
+    costOfRevenue: 9000,      // 毛利率 40%（+3pp）
+    sellingExpenses: 950,
+    adminExpenses: 700,
+    rdExpenses: 580,
+    financeExpenses: 150,
+    interestExpense: 60,
+    incomeTax: 905,
+    netIncome: 2715,          // +61%
+    totalAssets: 11500,
+    currentAssets: 5800,
+    cashEquivalents: 2900,
+    accountsReceivable: 1080,
+    otherReceivables: 120,
+    inventory: 750,
+    totalLiabilities: 3800,
+    currentLiabilities: 3300,
+    shortTermBorrowings: 300,
+    accountsPayable: 850,
+    otherPayables: 170,
+    totalEquity: 7700,
+    operatingCashFlow: 2900,  // +61%
   },
 ];
 
 // ============================================================
-// 急速控股 — 暗藏财务风险的问题企业
+// 急速控股 — 急剧恶化的风险企业
 // 埋入异常:
-//   规则1: 收入增长但经营现金流持续下降（2024降15% → 2025降24%）
-//   规则2: 应收增速远超收入增速（2024: 应收+60% vs 收入+20%, 2025: 应收+50% vs 收入+15%）
-//   规则9: 存贷双高（2025: 货币资金/总资产≈24%, 短期借款/总资产≈20%）
+//   规则1: 收入连年增长但经营现金流暴跌后转负
+//          (2023: OCF 950 → 2024: 350 → 2025: -300)
+//   规则2: 应收增速远超收入增速
+//          (2024: 应收+100% vs 收入+20%, 2025: 应收+208% vs 收入+35%)
+//   规则3: 存货异常堆积
+//          (2024: 存货+40% vs 收入+20%, 2025: 存货+43% vs 收入+35%)
+//   规则4: 毛利率断崖下跌（35% → 25% → 15%）
+//   规则9: 存贷双高（2025: 货币资金/总资产≈16%, 短期借款/总资产≈31%）
 // ============================================================
 
 export const rapidHoldingsData: FinancialStatement[] = [
@@ -100,78 +105,78 @@ export const rapidHoldingsData: FinancialStatement[] = [
     companyName: '急速控股（示例）',
     fiscalYear: 2023,
     revenue: 8000,
-    costOfRevenue: 5200,
+    costOfRevenue: 5200,      // 毛利率 35%
     sellingExpenses: 600,
     adminExpenses: 500,
     rdExpenses: 200,
     financeExpenses: 300,
     interestExpense: 180,
-    incomeTax: 360,
-    netIncome: 840,
-    totalAssets: 10000,
-    currentAssets: 5200,
-    cashEquivalents: 2500,
-    accountsReceivable: 1000,
+    incomeTax: 300,
+    netIncome: 900,
+    totalAssets: 9000,
+    currentAssets: 5000,
+    cashEquivalents: 2000,
+    accountsReceivable: 1300,
     otherReceivables: 150,
-    inventory: 800,
-    totalLiabilities: 5000,
-    currentLiabilities: 4500,
-    shortTermBorrowings: 1800,
+    inventory: 700,
+    totalLiabilities: 4500,
+    currentLiabilities: 4000,
+    shortTermBorrowings: 1500,
     accountsPayable: 700,
     otherPayables: 200,
-    totalEquity: 5000,
+    totalEquity: 4500,
     operatingCashFlow: 950,
   },
   {
     companyName: '急速控股（示例）',
     fiscalYear: 2024,
-    revenue: 9600,         // +20%
-    costOfRevenue: 6240,
-    sellingExpenses: 720,
-    adminExpenses: 580,
-    rdExpenses: 240,
-    financeExpenses: 340,
-    interestExpense: 210,
-    incomeTax: 444,
-    netIncome: 1036,       // +23%
-    totalAssets: 12000,
-    currentAssets: 6500,
-    cashEquivalents: 3000,
-    accountsReceivable: 1600,  // +60% ← 异常！
-    otherReceivables: 180,
-    inventory: 960,           // +20%
-    totalLiabilities: 6500,
-    currentLiabilities: 5800,
-    shortTermBorrowings: 2200,
-    accountsPayable: 820,
-    otherPayables: 250,
-    totalEquity: 5500,
-    operatingCashFlow: 810,    // -15% ← 异常！
+    revenue: 9600,            // +20%
+    costOfRevenue: 7200,      // 毛利率 25%（-10pp，恶化开始）
+    sellingExpenses: 750,
+    adminExpenses: 600,
+    rdExpenses: 250,
+    financeExpenses: 380,
+    interestExpense: 250,
+    incomeTax: 105,
+    netIncome: 315,           // -65%（利润跳水）
+    totalAssets: 11500,
+    currentAssets: 6800,
+    cashEquivalents: 1700,
+    accountsReceivable: 2600, // +100% ← 应收暴增！
+    otherReceivables: 200,
+    inventory: 980,           // +40% ← 存货堆积！
+    totalLiabilities: 6800,   // 负债率 59%
+    currentLiabilities: 6000,
+    shortTermBorrowings: 2800,
+    accountsPayable: 880,
+    otherPayables: 280,
+    totalEquity: 4700,
+    operatingCashFlow: 350,   // -63% ← 现金流恶化！
   },
   {
     companyName: '急速控股（示例）',
     fiscalYear: 2025,
-    revenue: 11040,        // +15%
-    costOfRevenue: 7176,
-    sellingExpenses: 850,
-    adminExpenses: 660,
-    rdExpenses: 300,
-    financeExpenses: 390,
-    interestExpense: 250,
-    incomeTax: 499,
-    netIncome: 1165,       // +12%
-    totalAssets: 14000,
-    currentAssets: 7800,
-    cashEquivalents: 3400,    // 3400/14000 = 24.3% ← 存贷双高
-    accountsReceivable: 2400, // +50% ← 异常！远超收入增速15%
-    otherReceivables: 200,
-    inventory: 1100,         // +15%
-    totalLiabilities: 8000,
-    currentLiabilities: 7000,
-    shortTermBorrowings: 2800, // 2800/14000 = 20% ← 存贷双高
-    accountsPayable: 950,
-    otherPayables: 300,
-    totalEquity: 6000,
-    operatingCashFlow: 615,    // -24% ← 异常！
+    revenue: 13000,           // +35%（收入仍在增长…）
+    costOfRevenue: 11050,     // 毛利率 15%（-10pp，断崖下跌）
+    sellingExpenses: 650,
+    adminExpenses: 530,
+    rdExpenses: 200,
+    financeExpenses: 380,
+    interestExpense: 300,
+    incomeTax: 48,
+    netIncome: 142,           // ROE ≈ 3%，濒临亏损
+    totalAssets: 16000,
+    currentAssets: 9500,
+    cashEquivalents: 2500,
+    accountsReceivable: 8000, // +208% ← 应收彻底失控！
+    otherReceivables: 250,
+    inventory: 1400,          // +43% ← 库存积压严重
+    totalLiabilities: 11200,  // 负债率 70%
+    currentLiabilities: 9500,
+    shortTermBorrowings: 5000,
+    accountsPayable: 1050,
+    otherPayables: 380,
+    totalEquity: 4800,
+    operatingCashFlow: -300,  // 现金流转负！利润只是纸面数字
   },
 ];
