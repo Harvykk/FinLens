@@ -1,7 +1,7 @@
-// FinLens — 比率迷你趋势折线图
+// FinLens — 比率年度对比柱状图
 'use client';
 
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import type { RatioValue } from '@/types';
 
 interface RatioTrendChartProps {
@@ -10,68 +10,57 @@ interface RatioTrendChartProps {
   compact?: boolean;
 }
 
+/** Y 轴从接近数据最小值处起算，不做 0 基线，让年度间变化更明显 */
+function yDomain(dataMin: number, dataMax: number): [number, number] {
+  const range = dataMax - dataMin;
+  if (range === 0) return [dataMin - 1, dataMax + 1];
+  return [dataMin - range * 0.2, dataMax + range * 0.1];
+}
+
 export default function RatioTrendChart({ values, color = '#1E3A5F', compact = false }: RatioTrendChartProps) {
   const validData = values
-    .filter(v => v.value !== null)
+    .filter((v): v is RatioValue & { value: number } => v.value !== null)
     .map(v => ({ year: v.year, value: v.value }));
 
-  if (validData.length < 2) {
-    // 单点也用图表展示
-    if (validData.length === 1) {
-      return (
-        <ResponsiveContainer width="100%" height={compact ? 48 : 200}>
-          <LineChart data={validData}>
-            <XAxis dataKey="year" hide={compact} tick={{ fontSize: 12 }} />
-            <YAxis hide={compact} tick={{ fontSize: 11 }} width={40} />
-            <Tooltip
-              contentStyle={{
-                border: '1px solid #E5E7EB',
-                borderRadius: '4px',
-                fontSize: '12px',
-                boxShadow: 'none',
-              }}
-              formatter={(value) => [Number(value).toFixed(2), '']}
-              labelFormatter={(label) => `${label}年`}
-            />
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke={color}
-              strokeWidth={1.5}
-              dot={{ r: 3, fill: color, strokeWidth: 0 }}
-              activeDot={{ r: 4 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      );
-    }
+  if (validData.length === 0) {
     return <div className="flex items-center justify-center h-full text-xs text-finlens-text-secondary">数据不足</div>;
   }
 
+  const dataMin = Math.min(...validData.map(d => d.value));
+  const dataMax = Math.max(...validData.map(d => d.value));
+  const [domainMin, domainMax] = yDomain(dataMin, dataMax);
+
+  const height = compact ? 48 : 200;
+
   return (
-    <ResponsiveContainer width="100%" height={compact ? 48 : 200}>
-      <LineChart data={validData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
+    <ResponsiveContainer width="100%" height={height}>
+      <BarChart data={validData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
         <XAxis dataKey="year" hide={compact} tick={{ fontSize: 12 }} tickLine={false} />
-        <YAxis hide={compact} tick={{ fontSize: 11 }} width={40} tickLine={false} axisLine={false} />
+        <YAxis
+          hide={compact}
+          tick={{ fontSize: 11 }}
+          width={40}
+          tickLine={false}
+          axisLine={false}
+          domain={[domainMin, domainMax]}
+        />
         <Tooltip
           contentStyle={{
             border: '1px solid #E5E7EB',
             borderRadius: '4px',
             fontSize: '12px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+            boxShadow: compact ? 'none' : '0 1px 3px rgba(0,0,0,0.08)',
           }}
           formatter={(value) => [Number(value).toFixed(2), '']}
           labelFormatter={(label) => `${label}年`}
         />
-        <Line
-          type="monotone"
+        <Bar
           dataKey="value"
-          stroke={color}
-          strokeWidth={1.5}
-          dot={{ r: 2.5, fill: color, strokeWidth: 0 }}
-          activeDot={{ r: 4 }}
+          fill={color}
+          radius={[2, 2, 0, 0]}
+          maxBarSize={compact ? 12 : 48}
         />
-      </LineChart>
+      </BarChart>
     </ResponsiveContainer>
   );
 }

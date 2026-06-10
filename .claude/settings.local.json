@@ -12,7 +12,8 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(git init *)",
-      "Bash(gh repo *)"
+      "Bash(gh repo *)",
+      "WebFetch(domain:fin-lens-brown.vercel.app)"
     ],
     "additionalDirectories": [
       "c:\\Users\\Harvey K Li\\Desktop\\Vibe coding开发案例\\FinLens",
