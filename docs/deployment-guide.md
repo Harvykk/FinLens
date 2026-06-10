@@ -40,6 +40,56 @@ git push -u origin main
    - 下载 Excel 模板 → 应下载 .xlsx 文件
    - 在 375px 宽度（手机）下浏览 → 应正常显示无溢出
 
+## 部署到 Cloudflare Pages
+
+FinLens 通过 `@opennextjs/cloudflare` 适配器支持 Cloudflare Pages 部署，在 Cloudflare 全球边缘网络上运行。
+
+### 前置条件
+1. [Cloudflare 账号](https://dash.cloudflare.com/sign-up)
+2. 代码已推送到 GitHub / GitLab 仓库
+3. （可选）安装 [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/)：`npm install -g wrangler`
+
+### 方案一：通过 Cloudflare Dashboard 部署（推荐）
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. 进入 **Workers & Pages** → **Pages** → **连接到 Git**
+3. 选择你的 GitHub 仓库
+4. 配置构建设置：
+   | 设置项 | 值 |
+   |--------|-----|
+   | 构建命令 | `npm run cf:build` |
+   | 输出目录 | `.open-next/worker` |
+   | 框架预设 | Next.js |
+5. 配置环境变量（Settings → Environment Variables）：
+   | 变量名 | 说明 |
+   |--------|------|
+   | `AI_API_KEY` | **必填**，AI 摘要 API 密钥 |
+   | `AI_BASE_URL` | 可选，第三方兼容 API 地址 |
+   | `AI_MODEL` | 可选，默认 `gpt-4o-mini` |
+6. 点击 **"保存并部署"**
+
+### 方案二：通过 Wrangler CLI 部署
+
+```bash
+# 本地预览
+npm run cf:preview
+
+# 部署到 Cloudflare Pages
+npm run cf:deploy
+```
+
+> ⚠️ 使用 CLI 部署前，需通过 `wrangler pages secret put AI_API_KEY` 设置生产环境密钥。
+
+### Cloudflare Pages 与 Vercel 的差异
+| 项目 | Vercel | Cloudflare Pages |
+|------|--------|------------------|
+| 运行时 | Node.js | Edge（Cloudflare Workers） |
+| 构建命令 | 自动检测 | `opennextjs-cloudflare build` |
+| API 密钥配置 | Dashboard 环境变量 | Dashboard Secrets |
+| 本地预览 | `npm run dev` | `npm run cf:preview` |
+
+> ℹ️ Cloudflare Pages 使用 Edge Runtime，已针对该运行时重构了 AI 调用（使用标准 fetch 替代 OpenAI SDK）和 Excel 模块（纯客户端处理）。
+
 ## 密钥安全检查清单
 部署完成后，逐项确认：
 - [ ] `.gitignore` 中已包含 `.env*.local` 规则

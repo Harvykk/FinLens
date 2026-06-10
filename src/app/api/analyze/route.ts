@@ -1,9 +1,11 @@
+export const runtime = 'edge';
+
 // FinLens — 分析 API
 // POST: 接收 FinancialStatement[]，返回比率 + 预警 + 整体判断
 import { NextResponse } from 'next/server';
 import { calculateAllRatios, generateOverallJudgment, getKeyMetrics } from '@/lib/ratios';
 import { detectAnomalies } from '@/lib/anomalies';
-import { validateBalanceSheet } from '@/lib/excel';
+import { validateBalanceSheet } from '@/lib/validation';
 import type { FinancialStatement } from '@/types';
 
 export async function POST(request: Request) {

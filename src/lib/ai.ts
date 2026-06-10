@@ -1,4 +1,5 @@
 // FinLens — AI 接口封装（OpenAI 兼容）
+// 使用标准 fetch API 替代 OpenAI SDK，兼容 Edge Runtime（Cloudflare Pages）
 import type { FinancialStatement, RatioResult, AnomalyFlag, AiSummaryResult } from '@/types';
 
 interface AiConfig {
@@ -82,33 +83,46 @@ export async function generateAiSummary(
 
   const years = statements.map(s => s.fiscalYear).sort();
 
-  // 动态导入 OpenAI（避免客户端 bundle 问题）
-  const { OpenAI } = await import('openai');
-
-  const client = new OpenAI({
-    apiKey: config.apiKey,
-    baseURL: config.baseUrl,
-  });
+  // 使用标准 fetch API（兼容 Edge Runtime，无需 Node.js SDK）
+  const apiBase = config.baseUrl || 'https://api.openai.com/v1';
 
   try {
-    const response = await client.chat.completions.create({
-      model: config.model || 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: '你是一位资深财务分析师，所有分析必须严格基于提供的数据，不编造任何数字。输出格式为 JSON。',
-        },
-        {
-          role: 'user',
-          content: buildPrompt(companyName, years, ratios, anomalies),
-        },
-      ],
-      temperature: 0.3, // 低温度保证一致性
-      max_tokens: 1000,
-      response_format: { type: 'json_object' },
+    const response = await fetch(`${apiBase}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${config.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: config.model || 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: '你是一位资深财务分析师，所有分析必须严格基于提供的数据，不编造任何数字。输出格式为 JSON。',
+          },
+          {
+            role: 'user',
+            content: buildPrompt(companyName, years, ratios, anomalies),
+          },
+        ],
+        temperature: 0.3,
+        max_tokens: 1000,
+        response_format: { type: 'json_object' },
+      }),
     });
 
-    const content = response.choices[0]?.message?.content;
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('AI API error:', response.status, errorText);
+      return {
+        overview: `AI 摘要生成失败：API 返回 ${response.status}。请检查 API Key 配置。`,
+        topConcerns: [],
+        suggestedQuestions: [],
+      };
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content;
     if (!content) return null;
 
     const parsed = JSON.parse(content);

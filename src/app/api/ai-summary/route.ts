@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 // FinLens — AI 摘要 API
 // POST: 接收比率 + 预警数据，调用 AI 生成管理层摘要
 import { NextResponse } from 'next/server';
