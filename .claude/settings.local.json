@@ -13,7 +13,11 @@
       "Bash(npm run *)",
       "Bash(git init *)",
       "Bash(gh repo *)",
-      "WebFetch(domain:fin-lens-brown.vercel.app)"
+      "WebFetch(domain:fin-lens-brown.vercel.app)",
+      "Bash(ls -la ~/.ssh/ 2>/dev/null || echo \"No .ssh directory found\")",
+      "Read(//c/Users/Harvey K Li/**)",
+      "Bash(ssh-keygen -t ed25519 -C harvykk@github -f 'C:\\\\Users\\\\Harvey K Li/.ssh/id_ed25519' -N '')",
+      "Bash(ssh -o StrictHostKeyChecking=accept-new -T git@github.com)"
     ],
     "additionalDirectories": [
       "c:\\Users\\Harvey K Li\\Desktop\\Vibe coding开发案例\\FinLens",

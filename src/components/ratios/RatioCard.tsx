@@ -57,7 +57,7 @@ export default function RatioCard({ ratio }: RatioCardProps) {
       </div>
 
       {/* 迷你趋势图 */}
-      <div className="h-12">
+      <div className="h-18">
         <RatioTrendChart values={ratio.values} color="#1E3A5F" compact />
       </div>
 

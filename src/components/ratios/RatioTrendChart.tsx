@@ -10,11 +10,10 @@ interface RatioTrendChartProps {
   compact?: boolean;
 }
 
-/** Y 轴从接近数据最小值处起算，不做 0 基线，让年度间变化更明显 */
-function yDomain(dataMin: number, dataMax: number): [number, number] {
-  const range = dataMax - dataMin;
-  if (range === 0) return [dataMin - 1, dataMax + 1];
-  return [dataMin - range * 0.2, dataMax + range * 0.1];
+/** Y 轴从 0 起算，顶部留 10% 空间 */
+function yDomain(dataMax: number): [number, number] {
+  if (dataMax === 0) return [0, 1];
+  return [0, dataMax * 1.15];
 }
 
 export default function RatioTrendChart({ values, color = '#1E3A5F', compact = false }: RatioTrendChartProps) {
@@ -26,11 +25,10 @@ export default function RatioTrendChart({ values, color = '#1E3A5F', compact = f
     return <div className="flex items-center justify-center h-full text-xs text-finlens-text-secondary">数据不足</div>;
   }
 
-  const dataMin = Math.min(...validData.map(d => d.value));
   const dataMax = Math.max(...validData.map(d => d.value));
-  const [domainMin, domainMax] = yDomain(dataMin, dataMax);
+  const [domainMin, domainMax] = yDomain(dataMax);
 
-  const height = compact ? 48 : 200;
+  const height = compact ? 72 : 220;
 
   return (
     <ResponsiveContainer width="100%" height={height}>
@@ -58,7 +56,7 @@ export default function RatioTrendChart({ values, color = '#1E3A5F', compact = f
           dataKey="value"
           fill={color}
           radius={[2, 2, 0, 0]}
-          maxBarSize={compact ? 12 : 48}
+          maxBarSize={compact ? 80 : 64}
         />
       </BarChart>
     </ResponsiveContainer>
