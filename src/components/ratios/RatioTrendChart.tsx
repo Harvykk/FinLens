@@ -56,7 +56,7 @@ export default function RatioTrendChart({ values, color = '#1E3A5F', compact = f
           dataKey="value"
           fill={color}
           radius={[2, 2, 0, 0]}
-          maxBarSize={compact ? 80 : 64}
+          maxBarSize={compact ? 30 : 48}
         />
       </BarChart>
     </ResponsiveContainer>
