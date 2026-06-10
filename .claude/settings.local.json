@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"c:/Users/Harvey K Li/Desktop/Vibe coding开发案例/FinLens/docs\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --no-import-alias --no-turbopack --import-alias=\"@/*\")",
+      "Read(//c/Users/Harvey K Li/Desktop/Vibe coding开发案例/**)",
+      "Bash(npx create-next-app@latest finlens-temp --typescript --tailwind --eslint --app --src-dir --no-import-alias --no-turbopack --import-alias=\"@/*\")",
+      "Bash(cp -r finlens-temp/* FinLens/)",
+      "Bash(cp finlens-temp/.gitignore FinLens/)",
+      "Bash(cp finlens-temp/.eslintrc.json FinLens/)",
+      "Bash(rm -rf \"c:/Users/Harvey K Li/Desktop/Vibe coding开发案例/finlens-temp\")",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(git init *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Harvey K Li\\Desktop\\Vibe coding开发案例\\FinLens",
+      "c:\\Users\\Harvey K Li\\Desktop\\Vibe coding开发案例\\finlens-temp"
+    ]
+  }
+}

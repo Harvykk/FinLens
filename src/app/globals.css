@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ============================================
+   FinLens 设计令牌 — CSS 自定义属性
+   全站唯一设计来源，禁止在组件中硬编码色值
+   ============================================ */
+
+:root {
+  /* 主色 — 深蓝 */
+  --color-primary: #1E3A5F;
+  --color-primary-light: #2D5A8E;
+  --color-primary-pale: #E8EEF4;
+
+  /* 底色 */
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F6F7F9;
+  --color-border: #E5E7EB;
+
+  /* 强调色 */
+  --color-accent-red: #DC2626;
+  --color-accent-amber: #D97706;
+
+  /* 数据色板 */
+  --color-data-1: #1E3A5F;
+  --color-data-2: #3B82F6;
+  --color-data-3: #64748B;
+  --color-data-4: #DC2626;
+
+  /* 正负标识 */
+  --color-positive: #16A34A;
+  --color-negative: #DC2626;
+
+  /* 文字颜色 */
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-inverse: #FFFFFF;
+
+  /* 间距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* 字体 */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* 阴影 */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Tailwind CSS 4 @theme 扩展 */
+@theme inline {
+  --color-finlens-primary: var(--color-primary);
+  --color-finlens-primary-light: var(--color-primary-light);
+  --color-finlens-primary-pale: var(--color-primary-pale);
+  --color-finlens-bg: var(--color-bg);
+  --color-finlens-bg-alt: var(--color-bg-alt);
+  --color-finlens-border: var(--color-border);
+  --color-finlens-accent-red: var(--color-accent-red);
+  --color-finlens-accent-amber: var(--color-accent-amber);
+  --color-finlens-positive: var(--color-positive);
+  --color-finlens-negative: var(--color-negative);
+  --color-finlens-text-primary: var(--color-text-primary);
+  --color-finlens-text-secondary: var(--color-text-secondary);
+  --color-finlens-text-inverse: var(--color-text-inverse);
+  --color-finlens-data-1: var(--color-data-1);
+  --color-finlens-data-2: var(--color-data-2);
+  --color-finlens-data-3: var(--color-data-3);
+  --color-finlens-data-4: var(--color-data-4);
+  --font-finlens-sans: var(--font-sans);
+  --font-finlens-mono: var(--font-mono);
+}
+
+/* ============================================
+   全局基础样式
+   ============================================ */
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 等宽数字全局应用（表格、数字展示组件） */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   动效（仅两处）
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* 数字计数动画：配合 JS 使用 CSS transition */
+.number-count-up {
+  transition: all 0.6s ease-out;
+}
