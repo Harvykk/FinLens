@@ -55,8 +55,9 @@ function HomeContent() {
           <h1 className="text-2xl sm:text-3xl font-bold text-finlens-primary tracking-tight">FinLens</h1>
           <span className="text-lg sm:text-xl text-finlens-text-secondary">财报智能分析</span>
         </div>
-        <p className="text-sm sm:text-base text-finlens-text-secondary max-w-xl mx-auto leading-relaxed">
-          提交上市公司财务数据，几分钟内获得专业比率分析、异常预警和 AI 管理层摘要。
+        <p className="text-xs sm:text-sm text-finlens-text-secondary/70 max-w-xl mx-auto leading-relaxed">
+          提交上市公司财务数据<br />
+          几分钟内获得专业比率分析、异常预警和 AI 管理层摘要
         </p>
       </div>
 
