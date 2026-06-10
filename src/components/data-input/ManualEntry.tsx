@@ -1,4 +1,4 @@
-// FinLens — 手动录入表单（三表 × 多年份）
+// FinLens — 手动录入表单（三表 × 多年份，Excel 式表格布局）
 'use client';
 
 import { useState } from 'react';
@@ -101,79 +101,63 @@ export default function ManualEntry({ onSubmit }: ManualEntryProps) {
     onSubmit(filled, companyName.trim());
   };
 
-  const renderFieldRow = (s: FinancialStatement, yearIdx: number, field: keyof FinancialStatement, label: string) => {
-    const val = s[field] as number;
-    return (
-      <div key={field} className="flex items-center gap-2 py-1.5">
-        <label className="w-40 text-xs text-finlens-text-secondary shrink-0">{label}</label>
-        <input
-          type="number"
-          step="any"
-          value={val || ''}
-          onChange={e => updateField(yearIdx, field, e.target.value)}
-          placeholder="0"
-          className="flex-1 px-2 py-1 text-sm border border-finlens-border rounded-sm focus:outline-none focus:border-finlens-primary tabular-nums"
-        />
-        <span className="text-xs text-finlens-text-secondary w-8">万元</span>
-      </div>
-    );
-  };
-
   const tabs = [
     { label: '利润表', fields: INCOME_FIELDS },
     { label: '资产负债表', fields: BALANCE_FIELDS },
     { label: '现金流量表', fields: CASHFLOW_FIELDS },
   ] as const;
 
+  const activeFields = tabs[activeTab].fields;
+
   return (
     <div className="space-y-4 animate-fade-in">
-      {/* 公司名 */}
-      <div className="flex items-center gap-3">
-        <label className="text-sm font-medium text-finlens-text-primary w-20 shrink-0">公司名称</label>
-        <input
-          type="text"
-          value={companyName}
-          onChange={e => setCompanyName(e.target.value)}
-          placeholder="请输入上市公司全称"
-          className="flex-1 px-3 py-2 text-sm border border-finlens-border rounded-sm focus:outline-none focus:border-finlens-primary"
-        />
-      </div>
-
-      {/* 年度切换 */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs text-finlens-text-secondary mr-1">年度：</span>
-        {statements.map((s, idx) => (
-          <div key={idx} className="flex items-center gap-1">
-            <input
-              type="number"
-              value={s.fiscalYear || ''}
-              onChange={e => {
-                const y = parseInt(e.target.value);
-                if (!isNaN(y)) {
-                  setStatements(prev => {
-                    const next = [...prev];
-                    next[idx] = { ...next[idx], fiscalYear: y };
-                    return next;
-                  });
-                }
-              }}
-              className="w-20 px-2 py-1 text-sm border border-finlens-border rounded-sm text-center tabular-nums focus:outline-none focus:border-finlens-primary"
-              placeholder="年份"
-            />
-            {statements.length > 1 && (
-              <button onClick={() => removeYear(idx)} className="text-finlens-text-secondary hover:text-finlens-accent-red">
-                <Trash2 size={14} />
-              </button>
-            )}
-          </div>
-        ))}
-        <button
-          onClick={addYear}
-          className="inline-flex items-center gap-1 px-2 py-1 text-xs text-finlens-primary hover:bg-finlens-primary-pale rounded-sm"
-        >
-          <Plus size={14} />
-          添加年度
-        </button>
+      {/* 公司名 + 年度管理 */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="flex items-center gap-3 flex-1">
+          <label className="text-sm font-medium text-finlens-text-primary shrink-0">公司名称</label>
+          <input
+            type="text"
+            value={companyName}
+            onChange={e => setCompanyName(e.target.value)}
+            placeholder="请输入上市公司全称"
+            className="flex-1 px-3 py-2 text-sm border border-finlens-border rounded-sm focus:outline-none focus:border-finlens-primary"
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-finlens-text-secondary shrink-0">年度：</span>
+          {statements.map((s, idx) => (
+            <div key={idx} className="flex items-center gap-1">
+              <input
+                type="number"
+                value={s.fiscalYear || ''}
+                onChange={e => {
+                  const y = parseInt(e.target.value);
+                  if (!isNaN(y)) {
+                    setStatements(prev => {
+                      const next = [...prev];
+                      next[idx] = { ...next[idx], fiscalYear: y };
+                      return next;
+                    });
+                  }
+                }}
+                className="w-20 px-2 py-1 text-sm border border-finlens-border rounded-sm text-center tabular-nums focus:outline-none focus:border-finlens-primary"
+                placeholder="年份"
+              />
+              {statements.length > 1 && (
+                <button onClick={() => removeYear(idx)} className="text-finlens-text-secondary hover:text-finlens-accent-red">
+                  <Trash2 size={14} />
+                </button>
+              )}
+            </div>
+          ))}
+          <button
+            onClick={addYear}
+            className="inline-flex items-center gap-1 px-2 py-1 text-xs text-finlens-primary hover:bg-finlens-primary-pale rounded-sm shrink-0"
+          >
+            <Plus size={14} />
+            添加年度
+          </button>
+        </div>
       </div>
 
       {/* 报表 Tab 切换 */}
@@ -193,14 +177,56 @@ export default function ManualEntry({ onSubmit }: ManualEntryProps) {
         ))}
       </div>
 
-      {/* 表单字段 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-0">
-        {statements.map((s, yearIdx) => (
-          <div key={yearIdx} className="border border-finlens-border rounded-md p-3">
-            <h4 className="text-sm font-semibold text-finlens-primary mb-2">{s.fiscalYear}年</h4>
-            {tabs[activeTab].fields.map(f => renderFieldRow(s, yearIdx, f.field, f.label))}
-          </div>
-        ))}
+      {/* Excel 式表格 */}
+      <div className="border border-finlens-border rounded-md overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            {/* 表头 */}
+            <thead>
+              <tr className="bg-finlens-primary-pale">
+                <th className="text-left px-3 py-2.5 text-xs font-semibold text-finlens-text-primary border-r border-finlens-border w-48 sm:w-56">
+                  科目
+                </th>
+                {statements.map((s, idx) => (
+                  <th key={idx} className="px-3 py-2.5 text-center text-xs font-semibold text-finlens-text-primary border-r border-finlens-border last:border-r-0">
+                    {s.fiscalYear}年
+                    <span className="block text-[10px] font-normal text-finlens-text-secondary">（万元）</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            {/* 表体 */}
+            <tbody>
+              {activeFields.map((f, rowIdx) => (
+                <tr
+                  key={f.field}
+                  className={`border-t border-finlens-border transition-colors hover:bg-finlens-bg-alt ${
+                    rowIdx % 2 === 0 ? 'bg-white' : 'bg-finlens-bg-alt/50'
+                  }`}
+                >
+                  <td className="px-3 py-2 text-xs text-finlens-text-primary border-r border-finlens-border font-medium">
+                    {f.label}
+                  </td>
+                  {statements.map((s, yearIdx) => {
+                    const val = s[f.field] as number;
+                    return (
+                      <td key={yearIdx} className="px-2 py-1.5 border-r border-finlens-border last:border-r-0">
+                        <input
+                          type="number"
+                          step="any"
+                          value={val || ''}
+                          onChange={e => updateField(yearIdx, f.field, e.target.value)}
+                          placeholder="0"
+                          className="w-full px-2 py-1 text-sm border border-finlens-border rounded-sm text-right tabular-nums focus:outline-none focus:border-finlens-primary focus:ring-1 focus:ring-finlens-primary/20"
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* 错误 */}

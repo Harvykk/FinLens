@@ -11,7 +11,8 @@
       "Bash(rm -rf \"c:/Users/Harvey K Li/Desktop/Vibe coding开发案例/finlens-temp\")",
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "Bash(git init *)"
+      "Bash(git init *)",
+      "Bash(gh repo *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\Harvey K Li\\Desktop\\Vibe coding开发案例\\FinLens",

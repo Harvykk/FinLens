@@ -41,11 +41,7 @@ export default function RatioCard({ ratio }: RatioCardProps) {
         ) : (
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-bold text-finlens-primary tabular-nums">
-              {lastValue! >= 100
-                ? Math.round(lastValue!).toLocaleString()
-                : lastValue! >= 1
-                  ? lastValue!.toFixed(1)
-                  : lastValue!.toFixed(2)}
+              {lastValue!.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
             <span className="text-sm text-finlens-text-secondary">{ratio.unit}</span>
           </div>

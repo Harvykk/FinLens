@@ -9,7 +9,7 @@ import type { FinancialStatement } from '@/types';
 export const steadyTechData: FinancialStatement[] = [
   {
     companyName: '稳健科技（示例）',
-    fiscalYear: 2022,
+    fiscalYear: 2023,
     revenue: 10000,
     costOfRevenue: 6000,
     sellingExpenses: 800,
@@ -35,7 +35,7 @@ export const steadyTechData: FinancialStatement[] = [
   },
   {
     companyName: '稳健科技（示例）',
-    fiscalYear: 2023,
+    fiscalYear: 2024,
     revenue: 11500,
     costOfRevenue: 6900,
     sellingExpenses: 900,
@@ -61,7 +61,7 @@ export const steadyTechData: FinancialStatement[] = [
   },
   {
     companyName: '稳健科技（示例）',
-    fiscalYear: 2024,
+    fiscalYear: 2025,
     revenue: 13200,
     costOfRevenue: 7920,
     sellingExpenses: 1020,
@@ -90,15 +90,15 @@ export const steadyTechData: FinancialStatement[] = [
 // ============================================================
 // 急速控股 — 暗藏财务风险的问题企业
 // 埋入异常:
-//   规则1: 收入增长但经营现金流持续下降（2023降15% → 2024降24%）
-//   规则2: 应收增速远超收入增速（2023: 应收+60% vs 收入+20%, 2024: 应收+50% vs 收入+15%）
-//   规则9: 存贷双高（2024: 货币资金/总资产≈24%, 短期借款/总资产≈20%）
+//   规则1: 收入增长但经营现金流持续下降（2024降15% → 2025降24%）
+//   规则2: 应收增速远超收入增速（2024: 应收+60% vs 收入+20%, 2025: 应收+50% vs 收入+15%）
+//   规则9: 存贷双高（2025: 货币资金/总资产≈24%, 短期借款/总资产≈20%）
 // ============================================================
 
 export const rapidHoldingsData: FinancialStatement[] = [
   {
     companyName: '急速控股（示例）',
-    fiscalYear: 2022,
+    fiscalYear: 2023,
     revenue: 8000,
     costOfRevenue: 5200,
     sellingExpenses: 600,
@@ -124,7 +124,7 @@ export const rapidHoldingsData: FinancialStatement[] = [
   },
   {
     companyName: '急速控股（示例）',
-    fiscalYear: 2023,
+    fiscalYear: 2024,
     revenue: 9600,         // +20%
     costOfRevenue: 6240,
     sellingExpenses: 720,
@@ -150,7 +150,7 @@ export const rapidHoldingsData: FinancialStatement[] = [
   },
   {
     companyName: '急速控股（示例）',
-    fiscalYear: 2024,
+    fiscalYear: 2025,
     revenue: 11040,        // +15%
     costOfRevenue: 7176,
     sellingExpenses: 850,

@@ -463,7 +463,7 @@ export function getKeyMetrics(ratios: RatioResult[], data: FinancialStatement[])
     if (!r) return '—';
     const lv = lastValid(r.values);
     if (lv === null) return 'N/A';
-    return `${lv.toFixed(1)}${unit}`;
+    return `${lv.toFixed(2)}${unit}`;
   };
 
   return {

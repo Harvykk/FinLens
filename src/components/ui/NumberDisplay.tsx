@@ -76,12 +76,8 @@ export default function NumberDisplay({
     return <span className={`tabular-nums ${sizeMap[size]} text-finlens-text-secondary ${className}`}>N/A</span>;
   }
 
-  // 智能格式化：保留合适的小数位
-  const formatted = numValue >= 100
-    ? Math.round(displayValue).toLocaleString()
-    : numValue >= 1
-      ? displayValue.toFixed(1)
-      : displayValue.toFixed(2);
+  // 统一保留两位小数
+  const formatted = displayValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
     <span

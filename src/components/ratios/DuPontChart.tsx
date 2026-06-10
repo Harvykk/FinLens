@@ -57,14 +57,14 @@ export default function DuPontChart({ ratios }: DuPontChartProps) {
             <div key={year} className="bg-finlens-bg-alt rounded-md p-3 text-center">
               <p className="text-xs text-finlens-text-secondary mb-1">{year}年</p>
               <div className="text-xs text-finlens-text-secondary space-y-0.5">
-                <p>净利率 {nm.toFixed(1)}%</p>
+                <p>净利率 {nm.toFixed(2)}%</p>
                 <p className="text-finlens-text-secondary/60">×</p>
                 <p>周转率 {to.toFixed(2)} 次</p>
                 <p className="text-finlens-text-secondary/60">×</p>
                 <p>权益乘数 {lev.toFixed(2)} 倍</p>
                 <p className="text-finlens-text-secondary/60">=</p>
                 <p className="text-sm font-semibold text-finlens-primary tabular-nums">
-                  ROE {roeVal.toFixed(1)}%
+                  ROE {roeVal.toFixed(2)}%
                 </p>
               </div>
             </div>
@@ -83,6 +83,8 @@ export default function DuPontChart({ ratios }: DuPontChartProps) {
                 fontSize: '12px',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
               }}
+              formatter={(value) => [Number(value).toFixed(2), '']}
+              labelFormatter={(label) => `${label}年`}
             />
             {['净利率(%)', '周转率(次)', '权益乘数(倍)'].map((key, idx) => (
               <Bar key={key} dataKey={key} fill={COLORS[idx]} radius={[2, 2, 0, 0]} />

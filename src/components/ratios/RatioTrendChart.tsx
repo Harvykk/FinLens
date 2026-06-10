@@ -51,8 +51,8 @@ export default function RatioTrendChart({ values, color = '#1E3A5F', compact = f
   return (
     <ResponsiveContainer width="100%" height={compact ? 48 : 200}>
       <LineChart data={validData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
-        {!compact && <XAxis dataKey="year" tick={{ fontSize: 12 }} tickLine={false} />}
-        {!compact && <YAxis tick={{ fontSize: 11 }} width={40} tickLine={false} axisLine={false} />}
+        <XAxis dataKey="year" hide={compact} tick={{ fontSize: 12 }} tickLine={false} />
+        <YAxis hide={compact} tick={{ fontSize: 11 }} width={40} tickLine={false} axisLine={false} />
         <Tooltip
           contentStyle={{
             border: '1px solid #E5E7EB',
