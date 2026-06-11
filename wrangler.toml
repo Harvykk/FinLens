@@ -1,13 +1,9 @@
-# FinLens — Cloudflare Pages 配置
-# 使用 @opennextjs/cloudflare 适配器部署 Next.js
+# FinLens — Cloudflare Workers 配置（@opennextjs/cloudflare）
 name = "finlens"
+main = ".open-next/worker.js"
 compatibility_date = "2025-06-10"
+compatibility_flags = ["nodejs_compat"]
 
-# 通过 wrangler pages secret put 设置密钥，或通过 Cloudflare Dashboard 配置
-# 注意：wrangler.toml 中的 vars 仅用于本地预览，生产环境请使用 secrets
 [vars]
 AI_BASE_URL = ""
 AI_MODEL = "gpt-4o-mini"
-
-# 生产环境变量模板（实际值通过 wrangler pages secret put 设置）
-# wrangler pages secret put AI_API_KEY
