@@ -19,7 +19,12 @@
       "Bash(ssh-keygen -t ed25519 -C harvykk@github -f 'C:\\\\Users\\\\Harvey K Li/.ssh/id_ed25519' -N '')",
       "Bash(ssh -o StrictHostKeyChecking=accept-new -T git@github.com)",
       "Bash(node -e \"console.log\\(require\\('@opennextjs/cloudflare/package.json'\\).version\\)\")",
-      "Bash(npx opennextjs-cloudflare *)"
+      "Bash(npx opennextjs-cloudflare *)",
+      "Bash(npx vercel *)",
+      "Bash(npx wrangler *)",
+      "WebFetch(domain:finlens.a909836897.workers.dev)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://finlens.a909836897.workers.dev/\")",
+      "Bash(curl -s \"https://finlens.a909836897.workers.dev/\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\Harvey K Li\\Desktop\\Vibe coding开发案例\\FinLens",
